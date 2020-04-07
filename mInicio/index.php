@@ -132,6 +132,8 @@ $fecha=date("Y-m-d");
 
     <!-- Modal de contraseña -->
         <?php include'../modales/modalcontra.php'; ?>
+    <!-- Modal de contraseña dentro del Sistema -->
+        <?php include'../modales/modalcontraInicio.php'; ?>
     <!-- Modal de carga -->
         <?php include'../modales/modalCarga.php'; ?>    
     <!-- Modal de datos -->
