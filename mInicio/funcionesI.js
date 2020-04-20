@@ -156,7 +156,7 @@ function cssTema(h_sidebar,color_base,letra_color,color_borde){
         transition : 'background-color'+ duracion +' ease-in-out',
         "background-color": color_base,
         color: letra_color,
-        "border-bottom":'8px solid' + color_borde
+        "border-bottom":'8px solid' + color_borde,
     });
 
     $(".hTabla").css({
