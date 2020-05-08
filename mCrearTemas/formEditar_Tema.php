@@ -4,7 +4,7 @@ $varGral="-T";
 ?>
 <form id="frmActualizar<?php echo $varGral?>">
 
-<input type="hidden"  id="id_tema">
+<input type="hidden"  id="eId_tema">
 
     <div class="row">
 
@@ -12,6 +12,12 @@ $varGral="-T";
             <div class="form-group">
                 <label for="eNom_tema">Nombre del tema:</label>
                 <input type="text" id="eNom_tema" class="form-control">
+            </div>
+        </div>
+
+        <div id="mostrarA" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                <label type="hidden" id="segundosA">El tema se quitara en: 5</label>
             </div>
         </div>
 
@@ -53,7 +59,7 @@ $varGral="-T";
                 </div>
 
                 <div class="col text-center">
-                    <button class="btn btn-outline-dark  activo btnEspacio" id="btnProbar" disabled>
+                    <button onmousedown="audio.play()" type="button" class="btn btn-outline-dark  activo btnEspacio" id="btnProbarA<?php echo $varGral?>">
                         <i class='fa fa-play-circle fa-lg'></i>
                              Probar Tema
                     </button>
@@ -61,7 +67,7 @@ $varGral="-T";
 
                 <div class="col text-right">
                     <button  type="submit" class="btn btn-outline-success  activo btnEspacio" id="btnActualizar<?php echo $varGral?>">
-                        <i class='fa fa-bolt fa-lg'></i>
+                        <i class='fas fa-sync fa-spin fa-lg'></i>
                         Actualizar Información
                     </button>
                 </div>
@@ -71,3 +77,7 @@ $varGral="-T";
     </div>
 
 </form>
+<script>
+var audio = new Audio();
+audio.src ="../audios/Synth Various EC0-34.mp3";
+</script>

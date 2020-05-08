@@ -1,10 +1,14 @@
 //VARIABLE GLOBAL PARA NOMBRAR LOS ELEMENTOS DE LOS  FORMULARIOS
-//ESTADO CIVIL-EC 
+//CREAR TEMAS-T 
 var nombreModulo_T="Temas";
 
-$("#frmGuardar-EC").submit(function(e){
+$("#frmGuardar-T").submit(function(e){
 
-    var desc    = $("#desc").val();
+    var nombre     = $("#Nom_Tema").val();
+    var colorLetra = $("#color_fuente").val();
+    var colorBase  = $("#color_base").val();
+    var colorBaseF = $("#color_base_f").val();
+    var colorBorde = $("#color_borde").val();
 
     swal({
         title: "¿Estas Seguro?",
@@ -12,7 +16,7 @@ $("#frmGuardar-EC").submit(function(e){
         type: "info",
         showCancelButton: true,
         confirmButtonClass: "btn-primary",
-        confirmButtonText: "Si deseo guardarla",
+        confirmButtonText: "Si, deseo guardar",
         cancelButtonText: "Cancelar Acción",
         cancelButtonClass: "btn-outline-danger",
         closeOnConfirm: false,
@@ -21,24 +25,47 @@ $("#frmGuardar-EC").submit(function(e){
       }, function (isConfirm) {
         if (isConfirm) {
         setTimeout(function () {
-            swal.close();
             $.ajax({
-                url:"../mEstadoCivil/guardar.php",
+                url:"../mCrearTemas/comprobarG.php",
                 type:"POST",
                 dateType:"html",
-                data:{desc},
+                data:{nombre},
                 success:function(respuesta){
-                    console.log(respuesta);
-                    $("#guardar-EC").hide();
-                    llenar_lista_EC();
-                    $("#frmGuardar-EC")[0].reset();
-                    selectTwo();
-                    alertify.success("<i class='fa fa-save fa-lg'></i>", 2);
-                    $('#desc').focus();
-                    actividad  ="Se insertado un nuevo registro a la tabla "+nombreModulo_T;
-                    var idUser=$("#inicioIdusuario").val();
-                    log(actividad,idUser);
-        
+                    if(respuesta == "Si"){
+                        console.log('respuesta de Guardar - '+ respuesta);
+                        swal({
+                            title: "Error!",
+                            text: "Ya existe un tema con ese nombre",
+                            type: "error",
+                            confirmButtonClass: "btn-dark",
+                            confirmButtonText: "Enterado"
+                        }, function (isConfirm) {
+                            alertify.message("Gracias !");
+                        });
+                    }else{
+                        swal.close();
+                        $.ajax({
+                            url:"../mCrearTemas/guardarTema.php",
+                            type:"POST",
+                            dateType:"html",
+                            data:{nombre,colorLetra,colorBase,colorBaseF,colorBorde},
+                            success:function(respuesta){
+                                $("#guardar-T").hide();
+                                llenar_lista_T();
+                                var idTema=$("#inicioIdTema").val();
+                                aplicarTema(idTema,'otro');
+                                $("#frmGuardar-T")[0].reset();
+                                selectTwo();
+                                alertify.success("<i class='fa fa-save fa-lg'> Tema Guardado</i>", 2);
+                                actividad  ="Se insertado un nuevo registro a la tabla "+nombreModulo_T;
+                                var idUser=$("#inicioIdusuario").val();
+                                log(actividad,idUser);
+                            },
+                            error:function(xhr,status){
+                                alert("Error en metodo AJAX tema guardar"); 
+                            },
+                        });
+                    }
                 },
                 error:function(xhr,status){
                     alert("Error en metodo AJAX"); 
@@ -49,15 +76,18 @@ $("#frmGuardar-EC").submit(function(e){
             alertify.error(" <i class='fa fa-times fa-lg'></i> Cancelado",2);
         }
       });
-
     e.preventDefault();
     return false;
 });
 
-$("#frmActualizar-EC").submit(function(e){
+$("#frmActualizar-T").submit(function(e){
 
-    var id        = $("#eIdFC").val();
-    var desc    = $("#eDesc").val();
+    var id         = $("#eId_tema").val();
+    var nombre     = $("#eNom_tema").val();
+    var colorLetra = $("#eColor_fuente").val();
+    var colorBase  = $("#eColor_base").val();
+    var colorBaseF = $("#eColor_base_f").val();
+    var colorBorde = $("#eColor_borde").val();
 
     swal({
         title: "¿Estas Seguro?",
@@ -65,33 +95,57 @@ $("#frmActualizar-EC").submit(function(e){
         type: "info",
         showCancelButton: true,
         confirmButtonClass: "btn-success",
-        confirmButtonText: "Si deseo actualizarla",
+        confirmButtonText: "Si, deseo actualizarla",
         cancelButtonText: "Cancelar Acción",
         cancelButtonClass: "btn-outline-danger",
         closeOnConfirm: false,
         closeOnCancel: true,
-        showLoaderOnConfirm: true
+        showLoaderOnConfirm: true,
+        showCloseButton: true
       }, function (isConfirm) {
         if (isConfirm) {
         setTimeout(function () {
-            swal.close();
             $.ajax({
-                url:"../mEstadoCivil/actualizar.php",
+                url:"../mCrearTemas/comprobar.php",
                 type:"POST",
                 dateType:"html",
-                data:{id,desc},
+                data:{nombre,id},
                 success:function(respuesta){
-                    console.log(respuesta);
-                    llenar_lista_EC();
-                        $("#frmGuardar-EC")[0].reset();
-                        $("#frmActualizar-EC")[0].reset();
-                        alertify.success("<i class='fa fa-bolt fa-lg'></i>", 2);
-                    $("#btnCancelarG-EC , #btnCancelarA-EC").click();
-                    actividad  ="Se ha modificado un registro de la tabla "+nombreModulo_EC;
-                    var idUser=$("#inicioIdusuario").val();
-                    log(actividad,idUser);
-                    
-                    $('#desc').focus();
+                    if(respuesta == 'Si'){
+                        swal({
+                            title: "Error!",
+                            text: "Ya existe un tema con ese nombre",
+                            type: "error",
+                            confirmButtonClass: "btn-dark",
+                            confirmButtonText: "Enterado"
+                        }, function (isConfirm) {
+                            alertify.message("Gracias !");
+                        });
+                    }else{
+                        swal.close();
+                        $.ajax({
+                            url:"../mCrearTemas/actualizarTema.php",
+                            type:"POST",
+                            dateType:"html",
+                            data:{id,nombre,colorLetra,colorBase,colorBaseF,colorBorde},
+                            success:function(respuesta){
+                                console.log(respuesta);
+                                llenar_lista_T();
+                                    $("#frmGuardar-T")[0].reset();
+                                    $("#frmActualizar-T")[0].reset();
+                                    alertify.success("<i class='fa fa-bolt fa-lg'> Tema Actualizado</i>", 2);
+                                $("#btnCancelarG-T , #btnCancelarA-T").click();
+                                actividad  ="Se ha modificado un registro de la tabla "+nombreModulo_T;
+                                var idUser=$("#inicioIdusuario").val();
+                                var idTema=$("#inicioIdTema").val();
+                                aplicarTema(idTema,'otro');
+                                log(actividad,idUser);
+                            },
+                            error:function(xhr,status){
+                                alert("Error en metodo AJAX"); 
+                            },
+                        });
+                    }
                 },
                 error:function(xhr,status){
                     alert("Error en metodo AJAX"); 
@@ -129,8 +183,9 @@ function llenar_lista_T(){
 
 function llenar_formulario_T(id,nom_tema,color_fuente,color_base,color_base_f,color_borde){
     console.log(id);
-    $("#id_tema").val(id);
+    $("#eId_tema").attr('value',id);
     $("#eNom_tema").val(nom_tema);
+    console.log(color_fuente);
     $("#eColor_fuente").val(color_fuente);
     $("#eColor_base").val(color_base);
     $("#eColor_base_f").val(color_base_f);
@@ -202,8 +257,12 @@ $("#btnCancelarG-T , #btnCancelarA-T").click(function(){
 
 function nuevo_registro_CT(){
     $("#lblTitular").text(nombreModulo_T);
-
     $("#badgeInfo").text("Nuevo registro");
+
+    $("#color_fuente").val("#FFF8C6");
+    $("#color_base").val("#FFF8C6");
+    $("#color_base_f").val("#FFF8C6");
+    $("#color_borde").val("#FFF8C6");
 
     $("#Listado-T").hide();
     $("#guardar-T").fadeIn();
@@ -212,238 +271,7 @@ function nuevo_registro_CT(){
     
 }
 
-function aplicarTema(id,validador){
-    $.ajax({
-        url:"../mInicio/datosTema.php",
-        type:"POST",
-        dateType:"json",
-        data:{id},
-        success:function(respuesta){
-
-            var dataArray = JSON.parse(respuesta);
-
-            var h_sidebar=dataArray.result.color_base_fuerte;
-            var color_base=dataArray.result.color_base;
-            var letra_color=dataArray.result.color_letra;
-            var color_borde=dataArray.result.color_borde;
-            
-            cssTema(h_sidebar,color_base,letra_color,color_borde);
-
-            if (validador!='login'){
-                relacionarTema(id);
-                var tema=dataArray.result.nombre_tema;
-                $("#inicioIdTema").val(dataArray.result.id_tema);
-                //alertify.success(actividad,2);
-
-                if(validador=='enlace'){
-                    preloader(1,"Cambiando al tema "+tema);
-                    actividad  ="Ha cambiado al tema "+tema;
-                    var idUser=$("#inicioIdusuario").val();
-
-                    $('#mnuColapsado').click();
-
-                    log(actividad,idUser);
-                    $("html, body").animate({ scrollTop: 0 }, 1000); 
-                    return false; 
-                }
-            }
-
-        },
-        error:function(xhr,status){
-            alert("Error en metodo AJAX"); 
-        },
-    });
-}
-
-function relacionarTema(idTema){
-    var idUsuario = $("#inicioIdusuario").val();
-    $.ajax({
-        url:"relacionarTema.php",
-        type:"POST",
-        dateType:"json",
-        data:{idUsuario,idTema},
-        success:function(respuesta){
-            
-        },
-        error:function(xhr,status){
-            alert("Error en metodo AJAX"); 
-        },
-    });
-}
-
-function cssTema(h_sidebar,color_base,letra_color,color_borde){
-
-    var duracion=".5s";
-
-    $(".myJT").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "background-color": color_base,
-        color: letra_color,
-        "border-bottom":'8px solid' + color_borde,
-    });
-
-    $(".hTabla").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "background-color": color_base,
-        color: letra_color,
-    });
-
-    $("form , .contenedor").css({
-        'border-top':'.1em solid'+ color_borde ,
-        'border-bottom':'.1em solid'+ color_borde ,
-        'border-left':'.1em solid'+ color_borde ,
-        'border-right':'.1em solid'+ color_borde ,
-    });
-
-    $("#sidebar").css({
-        "background": color_base,
-        color: letra_color,
-        "border-right": "1px solid "+ h_sidebar,
-    });  
-
-    $("#sidebar .sidebar-header").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "background": h_sidebar,
-    });  
-
-    $("#sidebar ul.components").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "border-bottom": "1px solid "+ h_sidebar,
-    });  
-
-    $("#sidebar ul p").css({
-        color: letra_color,
-    }); 
-
-    $("#sidebar ul li").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "background-color": color_base,
-        color: letra_color,
-        'border-bottom':"1px solid "+ color_base,
-    }); 
-
-    $("#sidebar ul li").mouseout(function(){
-        $(this).css("color", letra_color);
-        
-        }, function(){
-        $(this).css("background-color", color_base);
-    });
-
-    $("#sidebar ul li").mouseover(function(){
-        $(this).css("color", letra_color);
-        }, function(){
-        $(this).css("background-color", h_sidebar);
-    });
-
-    $("#sidebar ul li ul li a").mouseout(function(){
-        $(this).css("color", letra_color);
-        }, function(){
-        $(this).css("background-color", color_base);
-    });
-
-    $("#sidebar ul li ul li a").mouseover(function(){
-        $(this).css("color", letra_color);
-        }, function(){
-        $(this).css("background-color", h_sidebar);
-    });
-  
-    $("ul ul a").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        background: color_base,
-    }); 
-
-    $("a.article , .activado").css({
-        "background-color": h_sidebar,
-        color: letra_color,
-        'border-bottom':"1px solid "+ color_base,
-    }); 
-
-    $("a.article , .activado").mouseover(function(){
-        $(this).css("color", "red");
-        }, function(){
-        $(this).css("background-color", color_borde);
-        $(this).css('border-bottom',"1px solid "+ color_base);
-    });
-
-    $("a.article , .activado").mouseout(function(){
-        $(this).css("color", "red");
-        }, function(){
-        $(this).css("background-color", h_sidebar);
-        $(this).css('border-bottom',"1px solid "+ color_base);
-    });
-
-    $(".modal-carga").css({
-        "background": color_base,
-    });  
-
-    $(".modal-carga-letra").css({
-        "color": letra_color,
-    });  
-
-    $("#sidebar ul li.active").css({
-        "color": letra_color,
-        "background": h_sidebar,
-    });  
-
-    $(".login_box").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "background": color_base,
-    });  
-
-    $("#frmLogin").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "border-color": color_borde,
-    });  
-
-    $(".bordeLogin").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "border-color": color_base,
-    });  
-
-    $(".tituloLogin").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "color": h_sidebar,
-    });  
-
-    $(".badge").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        "color": letra_color,
-        "background": h_sidebar,
-    });  
-
-    $("#txtMnuOp").css({
-        transition : 'background-color'+ duracion +' ease-in-out',
-        'background-color': color_base,
-        'border-top':"1px solid "+ h_sidebar,
-        'border-bottom':"1px solid "+ h_sidebar,
-        "color": letra_color,
-    }); 
-
-    $("#scroll").css({
-        'background-color': color_base
-    }); 
-
-    $("#scroll").mouseover(function(){
-        $(this).css("background-color", h_sidebar);
-        }, function(){
-            $(this).css("background-color", h_sidebar);
-    });
-
-    $("#scroll").mouseout(function(){
-        $(this).css("background-color", color_base);
-        }, function(){
-            $(this).css("background-color", color_base);
-    });
-
-
-    $("#scroll span").css({
-        'border-bottom-color': letra_color
-    }); 
-}
-
-function exportar(id){
-    valor = $("#btnExportar-T").val(id);
-    console.log(valor);
+function exportar(valor){
     swal({
         title: "¿Estas Seguro?",
         text: "¿Deseas Exportar este tema?",
@@ -461,13 +289,11 @@ function exportar(id){
         setTimeout(function () {
             swal.close();
             $.ajax({
-                url:"exportar_Tema.php",
+                url:"../expImpTemas/exportar.php",
                 type:"POST",
                 dateType:"html",
                 data:{valor},
                 success:function(respuesta){
-                    console.log(respuesta);
-
                     preloader(1,"Generando archivo JSON","Se ha exportado el archivo de manera exitosa !")
                 },
                 error:function(xhr,status){
@@ -485,11 +311,19 @@ function abrirModalImportar(){
     $("#modalImportar").modal("show");
 }
 
+function preloader(seg,mensaje,alerta){
+    var s=parseInt(seg)*1000;
+    abrirModalCarga(mensaje);
+    setTimeout(function() {
+
+        cerrarModalCarga(alerta);
+    },s);
+}
+
 function importarTema(){
-    var files = $('#image')[0].files[0];
+    var files = $('#image2')[0].files[0];
     var archivo=files.name;
     var ruta= "../expImpTemas/Temas/"+archivo;
-
     console.log(ruta);
     
     $.getJSON(ruta, function(data){
@@ -505,7 +339,7 @@ function importarTema(){
             var hora_registro     = data[tema].hora_registro;
 
             $.ajax({
-                url:"importar.php",
+                url:"../expImpTemas/importar.php",
                 type:"POST",
                 dateType:"html",
                 data:{nombre_tema,color_letra,color_base,color_base_fuerte,color_borde,fecha_registro,hora_registro},
@@ -515,7 +349,9 @@ function importarTema(){
                     if (bandera==0) {
                         preloader(1,"Importando Tema ...");
                         $("#modalImportar").modal("hide");
-                        combo_temas();
+                        llenar_lista_T();
+                        var idTema=$("#inicioIdTema").val();
+                        aplicarTema(idTema,'otro');
                     }else{
                         swal({
                             title: "Error!",
@@ -536,3 +372,82 @@ function importarTema(){
         }
     });
 }
+
+// Inicio de funcion para probar tema en formGuardar //
+$('#btnProbarG-T').click(function(){
+    var colorF     =  $('#color_fuente').val();
+    var colorB     =  $('#color_base').val();
+    var colorBF    =  $('#color_base_f').val();
+    var colorBorde =  $('#color_borde').val();
+    var idTema     =  $("#inicioIdTema").val();
+    cssTema(colorBF, colorB, colorF, colorBorde);
+    setTimeout(function(){aplicarTema(idTema,'login')},5000);
+    conteoG();
+    
+});
+// Fin de funcion para probar tema en formGuardar //
+
+// Inicio de funcion para probar tema en formActualizar //
+$('#btnProbarA-T').click(function(){
+    var colorF     =  $('#eColor_fuente').val();
+    var colorB     =  $('#eColor_base').val();
+    var colorBF    =  $('#eColor_base_f').val();
+    var colorBorde =  $('#eColor_borde').val();
+    var idTema     =  $("#inicioIdTema").val();
+    cssTema(colorBF, colorB, colorF, colorBorde);
+    setTimeout(function(){aplicarTema(idTema,'login')},5000);
+    conteoA();
+});
+// Fin de funcion para probar tema en formActualizar //
+
+// Inicio de funcion para validar que los inputs de los colores no esten vacio
+$("#color_fuente, #color_base, #color_base_f, #color_borde").change(function(){
+    var colorLetra = $("#color_fuente").val();
+    var colorBase  = $("#color_base").val();
+    var colorBaseF = $("#color_base_f").val();
+    var colorBorde = $("#color_borde").val();
+    if (colorLetra != '#000000' && colorBase != '#000000' && colorBaseF != '#000000' && colorBorde != '#000000') {
+        $("#btnProbarG-T").removeAttr('disabled');
+    }else{
+        $("#btnProbarG-T").attr('disabled','disabled');
+    }
+});
+// Fin de funcion para validar que los inputs de los colores no esten vacio
+
+// Inicio de funcion para mostrar el conteo regresivo del tema a probar
+var segundoInicio = 5;
+
+function conteoG() {
+    $("#mostrar").show();
+    $("#segundos").text("El tema se quitara en: "+segundoInicio);
+    if (segundoInicio == 0) {
+        // Cuenta regresiva ha finalizado
+        alertify.success("Tema probado", 2);
+        $("#mostrar").hide();
+        segundoInicio = 5;
+    } else {
+        segundoInicio-=1;
+        setTimeout(conteoG, 1000);
+    }
+}
+$("#mostrar").hide();
+// Fin de funcion para mostrar el conteo regresivo del tema a probar
+
+// Inicio de funcion para mostrar el conteo regresivo del tema a probar
+var segundoInicio = 5;
+
+function conteoA() {
+    $("#mostrarA").show();
+    $("#segundosA").text("El tema se quitara en: "+segundoInicio);
+    if (segundoInicio == 0) {
+        // Cuenta regresiva ha finalizado
+        alertify.success("Tema probado", 2);
+        $("#mostrarA").hide();
+        segundoInicio = 5;
+    } else {
+        segundoInicio-=1;
+        setTimeout(conteoA, 1000);
+    }
+}
+$("#mostrarA").hide();
+// Fin de funcion para mostrar el conteo regresivo del tema a probar

@@ -165,7 +165,7 @@ $fecha=date("Y-m-d");
         <?php include'../modales/modalPDF.php'; ?>
     <!-- Modal de PDF -->
     <!-- Modal importar temas -->
-        <?php include'../mCrearTemas/modal_ImportarTema.php'; ?>
+        <?php include'../modales/modal_ImportarTema.php'; ?>
     <!-- Modal importar temas -->
 
     <!-- jQuery -->
@@ -254,6 +254,5 @@ $fecha=date("Y-m-d");
         }); 
     });
     </script>
-
 </body>
 </html>

@@ -56,6 +56,7 @@ $consultar = mysqli_query($conexionLi, $cadena);
                 $chkChecado    = "";
                 $dtnDesabilita = "disabled";
                 $chkValor      = "0";
+                $iconSound="fas fa-minus-circle fa-lg";
             }
 
             $nom_tema           = $row[2];
@@ -82,19 +83,19 @@ $consultar = mysqli_query($conexionLi, $cadena);
                                 <i class="far fa-edit fa-lg"></i>
                     </button>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="imprimir btn btn-outline-warning btn-sm activo" id="btnExportar<?php echo $varGral?><?php echo $n?>" onclick="exportar(<?php echo $id?>)">
+                    <button <?php echo $dtnDesabilita?> type="button" class="exportar btn btn-outline-warning btn-sm activo" id="btnExportar<?php echo $varGral?><?php echo $n?>" onclick="exportar('<?php echo $id?>')">
                                 <i class="fas fa-file-export fa-lg"></i>
                     </button>
                 </td>
                 <td>
-                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info btn-sm activo"  id="btnSonido<?php echo $varGral?><?php echo $n?>" onmousedown="audio.play()" onclick="aplicarTema(<?php echo $id?>)">
-                        <i id="icoSound<?php echo $varGral?><?php echo $n?>" class="fas fa-play-circle fa-lg"></i>
+                    <button <?php echo $dtnDesabilita?> type="button" class="ventana btn btn-outline-info btn-sm activo"  id="btnSonido<?php echo $varGral?><?php echo $n?>" onmouseover="aplicarHover(<?php echo $id ?>)" onclick="aplicarTema(<?php echo $id ?>,'aplicar')">
+                        <i id="icoSound<?php echo $varGral?><?php echo $n?>" class="<?php echo $iconSound?>"></i>
                     </button>
                 </td>
                 <td style="width:25%;">
                     <label class="textoBase">
                        <strong>Nombre del tema:</strong> <?php echo $nom_tema?> <br>
-                       <strong>Creado desde hace: </strong><?php echo $dias?><br>
+                       <strong>Creado desde hace: </strong> <?php echo $dias?><br>
                        <strong>Hora en que fue creado:</strong> <?php echo $hora_registro?>
                     </label>
                 </td>
@@ -173,10 +174,10 @@ mysqli_close($conexionLi);
                           extend: 'excel',
                           text: "<i class='far fa-file-excel fa-lg' aria-hidden='true'></i> &nbsp;Exportar a Excel",
                           className: 'btn btn-outline-secondary btnEspacio',
-                          title:'Lista_datos_personales',
+                          title:'Lista_de_Temas',
                           id: 'btnExportar',
                           exportOptions: {
-                            columns:  [6,7,8,9,10],
+                            columns:  [4,5,6],
                           }
                       }
 
@@ -189,7 +190,7 @@ mysqli_close($conexionLi);
 <script>
     $('.toggle-two').bootstrapToggle();
 </script>
-<script>
+<!-- <script>
 var audio = new Audio();
 audio.src ="../audios/Synth Various EC0-34.mp3";
-</script>
+</script> -->

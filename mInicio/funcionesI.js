@@ -1,6 +1,8 @@
 // VARIABLES GLOBALES
 var obscuro  = "#343A40";
 var rojo     = "#D9304B";
+var audio = new Audio();
+audio.src ="../audios/Synth Various EC0-34.mp3";
 
 function ocultarSecciones(){
     // ASISTENCIAS
@@ -128,11 +130,44 @@ function aplicarTema(id,validador){
                     actividad  ="Ha cambiado al tema "+tema;
                     var idUser=$("#inicioIdusuario").val();
 
-                    $('#mnuColapsado').click();
+                    // $('#mnuColapsado').click();
 
                     log(actividad,idUser);
                     $("html, body").animate({ scrollTop: 0 }, 1000); 
                     return false; 
+                } else {
+                    if (validador == 'aplicar') {
+                        swal({
+                            title: "¿Estas Seguro?",
+                            text: "¿Deseas Aplicar el Tema?",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-success",
+                            confirmButtonText: "Si, deseo aplicar el tema",
+                            cancelButtonText: "Cancelar Acción",
+                            cancelButtonClass: "btn-outline-danger",
+                            closeOnConfirm: false,
+                            closeOnCancel: true,
+                            showLoaderOnConfirm: true
+                            }, function (isConfirm) {
+                            if (isConfirm) {
+                            setTimeout(function () {
+                                swal.close();
+                                preloader(1,"Cambiando al tema "+tema);
+                                actividad  ="Ha cambiado al tema "+tema;
+                                var idUser = $("#inicioIdusuario").val();
+                                audio.play();
+
+                                log(actividad,idUser);
+                                $("html, body").animate({ scrollTop: 0 }, 1000); 
+                            }, 2000);}
+                            else{
+                                alertify.error(" <i class='fa fa-times fa-lg'></i> Cancelado",2);
+                            }
+                        });
+
+                        
+                    }
                 }
             }
 

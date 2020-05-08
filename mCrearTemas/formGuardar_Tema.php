@@ -11,31 +11,37 @@ $varGral="-T";
             </div>
         </div>
 
+        <div id="mostrar" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="form-group">
+                <label type="hidden" id="segundos">El tema se quitara en: 5</label>
+            </div>
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label for="color_fuente">Color de fuente:</label>
-                <input type="color" class="form-control" id="color_fuente" required >
+                <input type="color" class="form-control" id="color_fuente" value="#000000">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label for="color_base">Color base:</label>
-                <input type="color" class="form-control" id="color_base" required >
+                <input type="color" class="form-control" id="color_base" value="#000000">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label for="color_base_f">Color base fuerte:</label>
-                <input type="color" class="form-control" id="color_base_f" required >
+                <input type="color" class="form-control" id="color_base_f" value="#000000">
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
             <div class="form-group">
                 <label for="color_borde">Color de borde:</label>
-                <input type="color" class="form-control" id="color_borde" required >
+                <input type="color" class="form-control" id="color_borde" value="#000000">
             </div>
         </div>
 
@@ -49,7 +55,7 @@ $varGral="-T";
                 </div>
 
                 <div class="col text-center">
-                    <button class="btn btn-outline-dark  activo btnEspacio" id="btnProbar" disabled>
+                    <button type="button" onmousedown="audio.play()" class="btn btn-outline-dark  activo btnEspacio" id="btnProbarG<?php echo $varGral?>" disabled>
                         <i class='fa fa-play-circle fa-lg'></i>
                              Probar Tema
                     </button>
@@ -67,3 +73,7 @@ $varGral="-T";
     </div>
 
 </form>
+<script>
+var audio = new Audio();
+audio.src ="../audios/Synth Various EC0-34.mp3";
+</script>
