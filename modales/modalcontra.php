@@ -31,6 +31,14 @@
                          <button value=0 type="button" id="btnVerContra" class="btn btn-form pull-left">
 									  	    <i id="icoVerContra" class="far fa-eye-slash"></i>
 									       </button>&nbsp;<label class="letra">Ver contraseña</label>
+                         <!-- <br>
+                         <div id="pswd_info">
+                          <center><h6>&nbsp;&nbsp;&nbsp;&nbsp;Tu contraseña debe cumplir con los siguientes requisitos:</h6></center>
+                          <ul>   
+                            <li id="length" class="invalid">Tener como mínimo 8 carácteres.</li>
+                            <li id="con" class="invalid">Las contraseñas deben coincidir.</li>          
+                          </ul>
+                        </div> -->
                      </div>
                     </div>
                   </div>

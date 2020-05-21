@@ -31,6 +31,7 @@
                          <button value=0 type="button" id="btnVerContraI" class="btn btn-form pull-left">
 									  	    <i id="icoVerContraI" class="far fa-eye-slash"></i>
 									       </button>&nbsp;<label for="btnVerContraI" class="letra">Ver contraseña</label>
+                        
                      </div>
                     </div>
                   </div>

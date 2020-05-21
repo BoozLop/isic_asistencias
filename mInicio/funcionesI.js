@@ -1,8 +1,6 @@
 // VARIABLES GLOBALES
 var obscuro  = "#343A40";
 var rojo     = "#D9304B";
-var audio = new Audio();
-audio.src ="../audios/Synth Various EC0-34.mp3";
 
 function ocultarSecciones(){
     // ASISTENCIAS
@@ -19,6 +17,10 @@ function ocultarSecciones(){
     $("#editar-EC").hide();
     $("#Listado-EC").hide();
     //USUARIOS
+    $("#usuarios").hide();
+    $("#guardar-U").hide();
+    $("#editar-U").hide();
+    $("#Listado-U").hide();
 
     //TEMAS
     $("#crearTemas").hide();
@@ -74,6 +76,17 @@ function verEstadoCivil(){
 
 function verUsuarios(){
     ocultarSecciones();
+    $("#lblTitular").text("Usuarios");
+    $("#badgeInfo").text("Lista");
+
+    $("#guardar-U").hide();
+    $("#editar-U").hide();
+    $("#Listado-U").fadeIn();
+
+    $("#usuarios").show();
+    llenar_lista_U();
+    var idTema=$("#inicioIdTema").val()
+    aplicarTema(idTema,'otro');
 }
 
 function verCrearTemas(){
@@ -116,6 +129,11 @@ function aplicarTema(id,validador){
             var color_base=dataArray.result.color_base;
             var letra_color=dataArray.result.color_letra;
             var color_borde=dataArray.result.color_borde;
+
+            $("#inputColorLetra").val(letra_color);
+            $("#inputColorBase").val(color_base);
+            $("#inputColorBaseF").val(h_sidebar);
+            $("#inputColorBorde").val(color_borde);
             
             cssTema(h_sidebar,color_base,letra_color,color_borde);
 
@@ -135,40 +153,7 @@ function aplicarTema(id,validador){
                     log(actividad,idUser);
                     $("html, body").animate({ scrollTop: 0 }, 1000); 
                     return false; 
-                } else {
-                    if (validador == 'aplicar') {
-                        swal({
-                            title: "¿Estas Seguro?",
-                            text: "¿Deseas Aplicar el Tema?",
-                            type: "info",
-                            showCancelButton: true,
-                            confirmButtonClass: "btn-success",
-                            confirmButtonText: "Si, deseo aplicar el tema",
-                            cancelButtonText: "Cancelar Acción",
-                            cancelButtonClass: "btn-outline-danger",
-                            closeOnConfirm: false,
-                            closeOnCancel: true,
-                            showLoaderOnConfirm: true
-                            }, function (isConfirm) {
-                            if (isConfirm) {
-                            setTimeout(function () {
-                                swal.close();
-                                preloader(1,"Cambiando al tema "+tema);
-                                actividad  ="Ha cambiado al tema "+tema;
-                                var idUser = $("#inicioIdusuario").val();
-                                audio.play();
-
-                                log(actividad,idUser);
-                                $("html, body").animate({ scrollTop: 0 }, 1000); 
-                            }, 2000);}
-                            else{
-                                alertify.error(" <i class='fa fa-times fa-lg'></i> Cancelado",2);
-                            }
-                        });
-
-                        
-                    }
-                }
+                } 
             }
 
         },
@@ -527,7 +512,7 @@ function cambiarContra(){
         dateType:"html",
         data:{usuario,ncontra},
         success:function(respuesta){
-            alertify.success("<i class='fa fa-check fa-lg'>La contraseña se ha cambiado con exito</i>",2);
+            alertify.success("<i class='fa fa-check fa-lg'> La contraseña se ha cambiado con exito</i>",2);
             $("#ConN").val("");
             $("#reccn").val("");
             $("#inicioIdusuario").val("");

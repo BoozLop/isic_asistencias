@@ -78,6 +78,13 @@ $fecha=date("Y-m-d");
                     <input type="hidden" id="inicioIdusuario">
                     <input type="hidden" id="inicioIdDato">
                     <input type="hidden" id="inicioIdTema">
+
+                    <input type="hidden" id="inputColorLetra">
+                    <input type="hidden" id="inputColorBase">
+                    <input type="hidden" id="inputColorBaseF">
+                    <input type="hidden" id="inputColorBorde">
+
+                    
                     <div class="col text-right">
                         <span  class="badge badge-secondary">
                         <label class="lead" id="titular">Programa de ejemplo</label>
@@ -126,7 +133,23 @@ $fecha=date("Y-m-d");
                 <section id="Listado-EC" class="animated  fadeIn contenedor" style="display:none;"></section>
             </div>
 
-            <div class="container" id="crearTemas">
+            <div class="container" id="usuarios">
+                <section id="guardar-U" style="display:none;">
+                    <?php
+                        include'../mUsuarios/formGuardar.php';
+                    ?>
+                </section>
+
+                <section id="editar-U" style="display:none;">
+                    <?php
+                        include'../mUsuarios/formEditar.php';
+                    ?>
+                </section>
+
+                <section id="Listado-U" class="animated fadeIn contenedor" style="display:none;"></section>
+            </div>
+
+            <div class="container-fluid" id="crearTemas">
                 <section id="guardar-T" style="display:none;">
                     <?php
                         include'../mCrearTemas/formGuardar_Tema.php';
@@ -167,6 +190,9 @@ $fecha=date("Y-m-d");
     <!-- Modal importar temas -->
         <?php include'../modales/modal_ImportarTema.php'; ?>
     <!-- Modal importar temas -->
+    <!-- Modal permisos usuario -->
+        <?php include'../mUsuarios/modalPermisos.php'; ?>
+    <!-- Modal permisos usuario -->
 
     <!-- jQuery -->
     <script src="../plugins/jQuery/jquery-3.3.1.js"></script>   
@@ -180,6 +206,7 @@ $fecha=date("Y-m-d");
     <script src="../mDatosPersonales/funcionesDP.js"></script> <!-- Datos Personales --> 
     <script src="../mEstadoCivil/funcionesEC.js"></script> <!-- Estado Civil -->
     <script src="../mCrearTemas/funcionesTemas.js"></script> <!-- Crear Temas -->
+    <script src="../mUsuarios/funcionesUsuarios.js"></script> <!-- Usuarios -->
     <!-- DataTables -->
     <script src="../plugins/dataTablesB4/js/jquery.dataTables.min.js"></script>
     <script src="../plugins/dataTablesB4/js/dataTables.bootstrap4.min.js"></script>
@@ -218,6 +245,9 @@ $fecha=date("Y-m-d");
     <script>
         combo_ecivil();
         selectTwo();
+        combo_personas();
+        combo_personasE();
+        combo_temas();
     </script>
 
     <script>
