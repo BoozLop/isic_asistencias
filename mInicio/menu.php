@@ -19,7 +19,7 @@ $cadenaMenu = "SELECT
 <ul class="list-unstyled components">
     <p class="centrar" id="txtMnuOp"><i class="fas fa-bars"></i> Menú de Opciones </p>
     <li class="menu active activado" id="liActividades">
-        <a href="javascript:verAsistencias()"><i class="fas fa-check"></i> Registro de Asistencia</a>
+        <a href="javascript:verAsistencias()" onclick=""><i class="fas fa-check"></i> Registro de Asistencia</a>
     </li>
     <li class="menu" id="liDatos">
         <a href="javascript:verDatosPersonales()"><i class="fas fa-user-check"></i> Datos Personales</a>

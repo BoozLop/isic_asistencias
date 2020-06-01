@@ -10,6 +10,11 @@
     --h-sidebar: #2f3640; */
 }
 
+@font-face {
+    font-family: "Pixel LCD-7";
+    src: url("../expImpTemas/fonts/Pixel LCD-7.ttf");
+  }
+
 :root {
     --colorPrimario  : rgb(0, 105, 217);
     --colorSecundario: #576574;
@@ -433,6 +438,7 @@ a.article:hover {
     color:#3a7d34;
 }
 
+
 div.pie{
     border    : 1px solid #ccc;
     margin    : 0px,0px,0px,10px;
@@ -461,4 +467,158 @@ label.letra{
 
 h5.letra{
     color: var(--colorPrimario);
+}
+label.clave{
+    color: black;
+    font-size: 30px;
+    font-family   : "Titillium Web", Verdana, Geneva, Tahoma, sans-serif;
+}
+span.main_time{
+    font-family: "Pixel LCD-7", serif;
+    font-size: 50px;
+}
+
+/* ASISTENCIAS */
+
+input#cveTrabajador[type="number"]::-webkit-outer-spin-button,
+input#cveTrabajador[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input#cveTrabajador[type="number"]{
+    -moz-appearance: textfield;
+}
+
+label.lblTiempo{
+    width: 100%;
+}
+
+
+.clave-group input[type="number"]{
+    padding-left: 40px;
+}
+
+.clave-group{
+    position: relative;
+}
+
+.clave-group i{
+    position: absolute;
+    left: 0px;
+    top: 1px;
+    padding: 30px 25px 26px 25px;
+    color: #000;
+    transition: .3s;
+}
+
+.clave-group.bg-icon input[type="number"]:focus + i{
+    color: #fff;
+    background-color: dodgerblue;
+}
+
+.clave-group.bg-icon i{
+    background-color: #aaa;
+    color: #fff;
+    border-radius: 4px 0 0 4px;
+    font-size: 20px;
+}
+/* Aqui modifique */
+input#cveTrabajador[type="number"]{
+    padding: 15px 12px 15px 80px;
+    font-size: 30px;
+}
+
+span.clave_ph{
+    position: absolute;
+    font-size: 30px;
+    left: 80px;
+    top: 15px;
+    color: #aaa;
+    transition:  all .3s ease-in;
+}
+
+.clave-group input[type="number"]:focus + .clave_ph, .clave-group input[type="number"]:valid + .clave_ph{
+    font-size: 14px;
+    left: 470px;
+    top: 0;
+    color: #000;
+    transition:  all .3s ease-in;
+    
+}
+
+span.clave_ph{
+    position: absolute;
+    font-size: 30px;
+    left: 80px;
+    top: 15px;
+    color: #aaa;
+    transition:  all .3s ease-in;
+}
+
+/* Clases para los tipos de registro */
+.entradaPuntual{
+    font-size: 40px;
+    color: rgb(234, 255, 234);
+    background-color: rgb(0, 201, 100);
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 170px 15px 170px;
+}
+
+.retardoMenor{
+    font-size: 40px;
+    color: rgb(234, 255, 234);
+    background-color: rgb(201, 121, 0);
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 170px 15px 170px;
+}
+
+.retardoMayor{
+    font-size: 40px;
+    color: rgb(234, 255, 234);
+    background-color: rgb(201, 0, 0);
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 170px 15px 170px;
+}
+
+.salida{
+    font-size: 40px;
+    color: rgb(234, 255, 234);
+    background-color: rgb(0, 121, 201);
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 170px 15px 170px;
+}
+
+.mensajeInc{
+    font-size: 40px;
+    color: rgb(234, 255, 234);
+    background-color: rgb(198, 201, 0);
+    border-radius: 4px 4px 4px 4px;
+    padding: 15px 170px 15px 170px;
+}
+
+span.nombrePer{
+    background-color: rgb(233, 236, 239);
+    border-radius: 5px 5px 5px 5px;
+    padding: 10px 305px 10px 15px;
+    position: absolute;
+}
+
+label.nombrePer{
+    padding: 0px 0px 0px 0px;
+}
+
+select.comboPersona{
+    background-color: rgb(233, 236, 239);
+    color: #3A3D39;
+    padding: 0px 0px 0px 10px;
+    height: 40px;
+    border: ridge;
+    border-radius: 5px 5px 5px 5px;
+    outline: none;
+    -webkit-appearance: button;
+}
+
+input.bordeSolido{
+    border: solid;
 }

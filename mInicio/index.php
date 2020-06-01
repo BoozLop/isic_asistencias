@@ -93,7 +93,7 @@ $fecha=date("Y-m-d");
                 </div>
             </div>
 
-            <div class="container" id="asistencias">
+            <div class="container-fluid" id="asistencias">
                 <section id="asistencia-AS">
                     <?php
                         include'../mAsistencias/formAsistencia.php';
@@ -117,7 +117,7 @@ $fecha=date("Y-m-d");
                 <section id="Listado-DP" class="animated  fadeIn contenedor" style="display:none;"></section>
             </div>        
 
-            <div class="container" id="estadoCivil">
+            <div class="container-fluid" id="estadoCivil">
                 <section id="guardar-EC" style="display:none;">
                     <?php
                         include'../mEstadoCivil/formGuardar.php';
@@ -133,7 +133,7 @@ $fecha=date("Y-m-d");
                 <section id="Listado-EC" class="animated  fadeIn contenedor" style="display:none;"></section>
             </div>
 
-            <div class="container" id="usuarios">
+            <div class="container-fluid" id="usuarios">
                 <section id="guardar-U" style="display:none;">
                     <?php
                         include'../mUsuarios/formGuardar.php';
@@ -207,6 +207,7 @@ $fecha=date("Y-m-d");
     <script src="../mEstadoCivil/funcionesEC.js"></script> <!-- Estado Civil -->
     <script src="../mCrearTemas/funcionesTemas.js"></script> <!-- Crear Temas -->
     <script src="../mUsuarios/funcionesUsuarios.js"></script> <!-- Usuarios -->
+    <script src="../mAsistencias/funcionesAS.js"></script> <!-- Asistencias -->
     <!-- DataTables -->
     <script src="../plugins/dataTablesB4/js/jquery.dataTables.min.js"></script>
     <script src="../plugins/dataTablesB4/js/dataTables.bootstrap4.min.js"></script>
@@ -248,6 +249,7 @@ $fecha=date("Y-m-d");
         combo_personas();
         combo_personasE();
         combo_temas();
+        CrearReloj();
     </script>
 
     <script>

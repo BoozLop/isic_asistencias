@@ -1,6 +1,7 @@
 // VARIABLES GLOBALES
-var obscuro  = "#343A40";
-var rojo     = "#D9304B";
+var obscuro    = "#343A40";
+var rojo       = "#D9304B";
+var mensajeIni = "Bienvenido al registro de Asistencias";
 
 function ocultarSecciones(){
     // ASISTENCIAS
@@ -31,13 +32,26 @@ function ocultarSecciones(){
 
 function verAsistencias(){
     ocultarSecciones();
-    preloader(1,'Asitencia del personal');
+    preloader(1,'Asitencia del personal', function(){
+        $("#cveTrabajador").focus();
+        $("#cveTrabajador").val('');
+    });
+    $("#contenedor-AS").hide();
+    $("#datos").hide();
     $("#datosPersona").hide();
     $("#asistencia-AS").fadeIn();
+    switchSonido(mensajeIni);
     $("#lblTitular").text("Control de Asistencias");
     $("#badgeInfo").text("Dezliza tú tarjeta");
-    var idTema=$("#inicioIdTema").val()
+    var idTema=$("#inicioIdTema").val();
     aplicarTema(idTema,'otro');
+
+    setTimeout(function(){
+        $('#cveTrabajador').focus();
+        $('#cveTrabajador').empty();
+        alertify.message("Bienvenido al registro de asistencias", 3);
+    },1000);
+    
 }
 
 function verDatosPersonales(){
@@ -179,12 +193,13 @@ function relacionarTema(idTema){
     });
 }
 
-function preloader(seg,mensaje){
+function preloader(seg,mensaje,callback){
     var s=parseInt(seg)*1000;
     abrirModalCarga(mensaje);
     setTimeout(function() {
 
         cerrarModalCarga();
+        if(callback) callback();
     },s);
 }
 
@@ -487,6 +502,7 @@ function selectTwo(){
         theme: "bootstrap4",
         placeholder: 'Seleccione...'
     });
+    
 }
 
 $(".menu").click(function(){
@@ -828,3 +844,5 @@ $("#ConN").keyup(function(){
 $("#RecCN").keyup(function(){
     validarCamposContraseñasI();
 });
+
+
